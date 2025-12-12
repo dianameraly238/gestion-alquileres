@@ -1,0 +1,12 @@
+body { font-family: sans-serif; background: #f0f2f5; padding: 20px; }
+.container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.card { border: 1px solid #ddd; padding: 10px; border-radius: 5px; }
+.alerta { background: #ffebee; color: #c62828; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ffcdd2; }
+.tabs { margin-bottom: 20px; }
+.tabs button { padding: 10px 20px; cursor: pointer; background: #eee; border: none; }
+.tabs button.active { background: #007bff; color: white; }
+.tabla { width: 100%; border-collapse: collapse; }
+.tabla th, .tabla td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
+.pagado { color: green; font-weight: bold; }
+.pendiente { color: red; font-weight: bold; }

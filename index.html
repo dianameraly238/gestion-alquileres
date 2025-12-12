@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Alquileres</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🏠 Gestión de Alquileres</h1>
+    
+    <div id="alertas-container"></div>
+
+    <div class="tabs">
+      <button onclick="ver('contratos')" class="active">Contratos</button>
+      <button onclick="ver('pagos')">Pagos y SUNAT</button>
+    </div>
+
+    <div id="vista-contratos">
+      <h2>Mis Inquilinos</h2>
+      <div id="lista-contratos" class="grid">Cargando datos...</div>
+    </div>
+
+    <div id="vista-pagos" style="display:none;">
+      <h2>Historial de Pagos</h2>
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>Periodo</th>
+            <th>Inquilino</th>
+            <th>Monto</th>
+            <th>SUNAT</th>
+          </tr>
+        </thead>
+        <tbody id="lista-pagos"></tbody>
+      </table>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
