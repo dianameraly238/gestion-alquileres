@@ -105,3 +105,80 @@ window.ver = function(id) {
 
 // Arrancar la app
 iniciarApp();
+// --- FUNCIONES PARA FORMULARIOS ---
+
+function mostrarForm(id) {
+  document.getElementById(id).style.display = 'flex';
+  
+  // Si abrimos el formulario de pagos, llenamos la lista de inquilinos
+  if(id === 'form-pago') {
+    const select = document.getElementById('p_contrato');
+    select.innerHTML = '';
+    datosGlobales.contratos.forEach(c => {
+      const option = document.createElement('option');
+      option.value = c.id;
+      option.textContent = c.inquilino;
+      select.appendChild(option);
+    });
+  }
+}
+
+function cerrarModales() {
+  document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+}
+
+async function enviarDatos(payload) {
+  // Mostramos mensaje de carga
+  const btn = document.querySelector('.modal[style="display: flex;"] button');
+  const textoOriginal = btn.textContent;
+  btn.textContent = "⏳ Guardando...";
+  btn.disabled = true;
+
+  try {
+    // Usamos 'no-cors' para evitar errores, aunque no podamos leer la respuesta JSON directa fácilmente en navegadores simples,
+    // Google Apps Script procesará la solicitud.
+    await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+
+    alert("✅ Datos guardados con éxito (Actualiza la página para verlos)");
+    cerrarModales();
+    iniciarApp(); // Recargar datos
+  } catch (error) {
+    alert("❌ Error guardando: " + error);
+  } finally {
+    btn.textContent = textoOriginal;
+    btn.disabled = false;
+  }
+}
+
+function guardarContrato() {
+  const payload = {
+    action: "nuevoContrato",
+    nombres: document.getElementById('c_nombres').value,
+    apellidos: document.getElementById('c_apellidos').value,
+    dni: document.getElementById('c_dni').value,
+    direccion: document.getElementById('c_direccion').value,
+    suministro: document.getElementById('c_luz').value,
+    fecha_inicio: document.getElementById('c_inicio').value,
+    fecha_fin: document.getElementById('c_fin').value,
+    monto: document.getElementById('c_monto').value,
+    tipo_garantia: document.getElementById('c_garantia_tipo').value,
+    monto_garantia: document.getElementById('c_garantia_monto').value
+  };
+  enviarDatos(payload);
+}
+
+function guardarPago() {
+  const payload = {
+    action: "nuevoPago",
+    id_contrato: document.getElementById('p_contrato').value,
+    periodo: document.getElementById('p_periodo').value,
+    fecha_pago: document.getElementById('p_fecha').value,
+    monto: document.getElementById('p_monto').value,
+    estado_luz: document.getElementById('p_luz').value,
+    estado_sunat: document.getElementById('p_sunat').value
+  };
+  enviarDatos(payload);
+}

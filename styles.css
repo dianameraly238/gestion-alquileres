@@ -10,3 +10,14 @@ body { font-family: sans-serif; background: #f0f2f5; padding: 20px; }
 .tabla th, .tabla td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
 .pagado { color: green; font-weight: bold; }
 .pendiente { color: red; font-weight: bold; }
+.acciones { display: flex; gap: 10px; margin-bottom: 20px; }
+.btn-primary { background: #28a745; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+.btn-secondary { background: #17a2b8; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+.btn-cancel { background: #dc3545; color: white; }
+
+/* Estilos del Modal */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; }
+.modal-content { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; display: flex; flex-direction: column; gap: 10px; }
+.modal-content input, .modal-content select { padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+.modal-buttons { display: flex; gap: 10px; margin-top: 10px; }
+.modal-buttons button { flex: 1; padding: 10px; cursor: pointer; border: none; border-radius: 4px; }

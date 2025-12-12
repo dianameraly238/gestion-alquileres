@@ -16,7 +16,57 @@
       <button onclick="ver('contratos')" class="active">Contratos</button>
       <button onclick="ver('pagos')">Pagos y SUNAT</button>
     </div>
+    <div class="acciones">
+      <button onclick="mostrarForm('form-contrato')" class="btn-primary">➕ Nuevo Contrato</button>
+      <button onclick="mostrarForm('form-pago')" class="btn-secondary">💰 Registrar Pago</button>
+    </div>
 
+    <div id="form-contrato" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Nuevo Contrato</h3>
+        <input type="text" id="c_nombres" placeholder="Nombres">
+        <input type="text" id="c_apellidos" placeholder="Apellidos">
+        <input type="number" id="c_dni" placeholder="DNI/RUC">
+        <input type="text" id="c_direccion" placeholder="Dirección Inmueble">
+        <input type="number" id="c_luz" placeholder="Num. Suministro Luz">
+        <label>Inicio: <input type="date" id="c_inicio"></label>
+        <label>Fin: <input type="date" id="c_fin"></label>
+        <input type="number" id="c_monto" placeholder="Monto Alquiler (S/)">
+        <select id="c_garantia_tipo">
+          <option value="1x1">Garantía 1x1</option>
+          <option value="2x1">Garantía 2x1</option>
+        </select>
+        <input type="number" id="c_garantia_monto" placeholder="Monto Garantía">
+        <div class="modal-buttons">
+          <button onclick="guardarContrato()">Guardar</button>
+          <button onclick="cerrarModales()" class="btn-cancel">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="form-pago" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h3>Registrar Pago</h3>
+        <select id="p_contrato">
+          <option>Cargando inquilinos...</option>
+        </select>
+        <input type="text" id="p_periodo" placeholder="Periodo (Ej: Octubre 2024)">
+        <label>Fecha Pago: <input type="date" id="p_fecha"></label>
+        <input type="number" id="p_monto" placeholder="Monto Pagado">
+        <select id="p_luz">
+          <option value="Al día">Luz: Al día</option>
+          <option value="Con Deuda">Luz: Con Deuda</option>
+        </select>
+        <select id="p_sunat">
+          <option value="Pendiente">SUNAT: Pendiente</option>
+          <option value="Pagado">SUNAT: Pagado</option>
+        </select>
+        <div class="modal-buttons">
+          <button onclick="guardarPago()">Guardar Pago</button>
+          <button onclick="cerrarModales()" class="btn-cancel">Cancelar</button>
+        </div>
+      </div>
+    </div>
     <div id="vista-contratos">
       <h2>Mis Inquilinos</h2>
       <div id="lista-contratos" class="grid">Cargando datos...</div>
