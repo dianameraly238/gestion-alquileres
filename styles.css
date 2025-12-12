@@ -1,23 +1,199 @@
-body { font-family: sans-serif; background: #f0f2f5; padding: 20px; }
-.container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-.grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-.card { border: 1px solid #ddd; padding: 10px; border-radius: 5px; }
-.alerta { background: #ffebee; color: #c62828; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ffcdd2; }
-.tabs { margin-bottom: 20px; }
-.tabs button { padding: 10px 20px; cursor: pointer; background: #eee; border: none; }
-.tabs button.active { background: #007bff; color: white; }
-.tabla { width: 100%; border-collapse: collapse; }
-.tabla th, .tabla td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
-.pagado { color: green; font-weight: bold; }
-.pendiente { color: red; font-weight: bold; }
-.acciones { display: flex; gap: 10px; margin-bottom: 20px; }
-.btn-primary { background: #28a745; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
-.btn-secondary { background: #17a2b8; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
-.btn-cancel { background: #dc3545; color: white; }
-
-/* Estilos del Modal */
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; }
-.modal-content { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; display: flex; flex-direction: column; gap: 10px; }
-.modal-content input, .modal-content select { padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
-.modal-buttons { display: flex; gap: 10px; margin-top: 10px; }
-.modal-buttons button { flex: 1; padding: 10px; cursor: pointer; border: none; border-radius: 4px; }
+/* DISEÑO COMPLETO: ROSADO Y ROJO */
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background-color: #FFF0F5; /* Fondo rosado muy suave */
+    margin: 0; 
+    padding: 20px; 
+    color: #444; 
+  }
+  
+  .container { 
+    max-width: 900px; 
+    margin: 0 auto; 
+    background: white; 
+    padding: 30px; 
+    border-radius: 15px; 
+    box-shadow: 0 4px 20px rgba(216, 27, 96, 0.15); 
+    border-top: 6px solid #D81B60; /* Rojo Frambuesa */
+  }
+  
+  h1, h2, h3 { 
+    color: #880E4F; /* Rojo Oscuro */
+    margin-top: 0;
+  }
+  
+  /* --- BOTONES Y ACCIONES --- */
+  .acciones {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .btn-primary { 
+    background: #D81B60; /* Rojo Frambuesa */
+    color: white; 
+    padding: 12px 25px; 
+    border: none; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    font-weight: bold;
+    font-size: 14px;
+    transition: background 0.3s;
+    box-shadow: 0 2px 5px rgba(216, 27, 96, 0.3);
+  }
+  
+  .btn-primary:hover { background: #AD1457; }
+  
+  .btn-secondary { 
+    background: #EC407A; /* Rosa Fuerte */
+    color: white; 
+    padding: 12px 25px; 
+    border: none; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    font-weight: bold;
+    font-size: 14px;
+    transition: background 0.3s;
+    box-shadow: 0 2px 5px rgba(236, 64, 122, 0.3);
+  }
+  
+  .btn-secondary:hover { background: #C2185B; }
+  
+  .btn-cancel {
+    background: #9E9E9E;
+    color: white;
+  }
+  
+  /* --- PESTAÑAS (TABS) --- */
+  .tabs { 
+    margin-bottom: 20px; 
+    display: flex; 
+    gap: 10px; 
+    border-bottom: 2px solid #F8BBD0; 
+    padding-bottom: 10px; 
+  }
+  
+  .tabs button { 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    background: transparent; 
+    border: none; 
+    color: #D81B60; 
+    font-weight: 600; 
+    font-size: 16px; 
+    border-radius: 20px; 
+    transition: all 0.3s; 
+  }
+  
+  .tabs button.active { 
+    background: #D81B60; 
+    color: white; 
+    box-shadow: 0 2px 5px rgba(216,27,96,0.3); 
+  }
+  
+  .tabs button:hover:not(.active) { background: #FCE4EC; }
+  
+  /* --- TARJETAS (CONTRATOS) --- */
+  .grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 20px; 
+  }
+  
+  .card { 
+    border: 1px solid #F8BBD0; 
+    background: #FFFBFC; 
+    padding: 20px; 
+    border-radius: 12px; 
+    transition: transform 0.2s, box-shadow 0.2s; 
+  }
+  
+  .card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 5px 15px rgba(216, 27, 96, 0.1);
+    border-color: #D81B60; 
+  }
+  
+  .card h3 { margin-bottom: 10px; font-size: 1.2rem; }
+  .card p { margin: 5px 0; font-size: 0.95rem; }
+  
+  /* --- TABLAS (PAGOS) --- */
+  .tabla { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  .tabla th { 
+    background: #D81B60; 
+    color: white; 
+    padding: 15px; 
+    text-align: left; 
+    border-radius: 5px 5px 0 0; 
+  }
+  .tabla td { padding: 12px; border-bottom: 1px solid #FCE4EC; }
+  .tabla tr:hover { background-color: #FFF0F5; }
+  
+  .pagado { color: #2E7D32; font-weight: bold; background: #E8F5E9; padding: 4px 8px; border-radius: 12px; font-size: 0.85rem;}
+  .pendiente { color: #C62828; font-weight: bold; background: #FFEBEE; padding: 4px 8px; border-radius: 12px; font-size: 0.85rem;}
+  
+  /* --- ALERTAS --- */
+  .alerta { 
+    background: #FFEBEE; 
+    color: #C62828; 
+    padding: 15px; 
+    margin-bottom: 20px; 
+    border-radius: 8px; 
+    border-left: 6px solid #D32F2F; 
+    display: flex; 
+    align-items: center; 
+    font-weight: 500;
+  }
+  
+  /* --- MODALES (FORMULARIOS) --- */
+  .modal { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(88, 14, 79, 0.7); /* Fondo oscuro vino */
+    display: none; /* Oculto por defecto */
+    justify-content: center; 
+    align-items: center; 
+    z-index: 1000; 
+    backdrop-filter: blur(2px);
+  }
+  
+  .modal-content { 
+    background: white; 
+    padding: 30px; 
+    border-radius: 15px; 
+    width: 90%; 
+    max-width: 450px; 
+    border: 2px solid #F8BBD0; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .modal-content input, .modal-content select { 
+    width: 100%; 
+    padding: 12px; 
+    margin: 8px 0 20px 0; 
+    border: 1px solid #F48FB1; 
+    border-radius: 8px; 
+    box-sizing: border-box; 
+    font-size: 14px;
+  }
+  
+  .modal-content label { font-weight: bold; color: #880E4F; font-size: 0.9rem; }
+  
+  .modal-buttons { display: flex; gap: 10px; margin-top: 10px; }
+  .modal-buttons button { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+  
+  /* Info extra en formulario */
+  .info-contrato { 
+    background: #FCE4EC; 
+    padding: 15px; 
+    border-radius: 8px; 
+    font-size: 0.9em; 
+    color: #880E4F; 
+    margin-bottom: 20px; 
+    border: 1px dashed #D81B60; 
+  }
