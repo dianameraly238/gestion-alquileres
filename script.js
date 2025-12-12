@@ -1,25 +1,23 @@
-// 🔴 PEGA TU URL DE APPS SCRIPT AQUÍ ABAJO (Dentro de las comillas):
-const API_URL = "https://script.google.com/macros/s/AKfycbyNc2uJdKb_EQlAPP3K_N1PIG3ZipzvwpuFon4YCWFaNqcljreErEnltZCTL3mtcIEuow/exec";
+// 🔴 PEGA TU URL DE APPS SCRIPT AQUÍ:
+const API_URL = "https://script.google.com/macros/s/AKfycbx1jcYzGuYKOKaMlWsco4pZ4CQf-1eYFkCXNf4Qa2sRw7KbqwLghpSxF__uDp1CAy-7vw/exec";
 
 let datosGlobales = { contratos: [], pagos: [] };
 
 // --- 1. INICIALIZACIÓN ---
 async function iniciarApp() {
   const container = document.getElementById('lista-contratos');
-  if(container) container.innerHTML = '<p style="text-align:center">🔄 Conectando con Google Drive...</p>';
+  if(container) container.innerHTML = '<p style="text-align:center; color:#C2185B;">🔄 Cargando sistema...</p>';
 
   try {
     const response = await fetch(`${API_URL}?action=obtenerDatos`);
     datosGlobales = await response.json();
     
-    console.log("Datos recibidos:", datosGlobales);
-
     renderizarContratos();
     renderizarPagos();
     
   } catch (error) {
     console.error("Error:", error);
-    if(container) container.innerHTML = "<p class='alerta'>❌ Error de conexión. Verifica la URL del Script.</p>";
+    if(container) container.innerHTML = "<p class='alerta'>❌ Error de conexión. Revisa tu script.</p>";
   }
 }
 
@@ -30,15 +28,14 @@ function renderizarContratos() {
   container.innerHTML = '';
 
   if (datosGlobales.contratos.length === 0) {
-      container.innerHTML = "<p>No hay contratos registrados.</p>";
+      container.innerHTML = "<p>No hay inquilinos registrados.</p>";
       return;
   }
 
   datosGlobales.contratos.forEach(c => {
-    // Lógica 1x1 vs 2x1
+    // Validar Garantía
     let validacion = "✅ Correcto";
     let montoEsperado = c.garantia_tipo === "2x1" ? c.monto * 2 : c.monto;
-    
     if(Number(c.garantia_monto) !== Number(montoEsperado)) validacion = "⚠️ Error Monto";
 
     const div = document.createElement('div');
@@ -49,8 +46,9 @@ function renderizarContratos() {
       <p><strong>💰 Alquiler:</strong> S/ ${c.monto}</p>
       <p><strong>🛡️ Garantía:</strong> ${c.garantia_tipo} (${validacion})</p>
       <p><strong>💡 Suministro:</strong> ${c.luz_suministro}</p>
-      <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
-      <a href="https://www.enel.pe/es/personas/consulta-tu-recibo.html" target="_blank" style="color: #D81B60; text-decoration: none; font-weight:bold;">⚡ Verificar Luz</a>
+      <div style="margin-top:10px; text-align:right;">
+         <a href="https://www.enel.pe/es/personas/consulta-tu-recibo.html" target="_blank" style="color: #C2185B; text-decoration: none; font-weight:bold;">⚡ Verificar Luz</a>
+      </div>
     `;
     container.appendChild(div);
   });
@@ -65,7 +63,7 @@ function renderizarPagos() {
   tbody.innerHTML = '';
   alertas.innerHTML = '';
 
-  // Ordenar pagos por ID descendente (más recientes primero)
+  // Invertir orden para ver el más reciente primero
   const pagosOrdenados = [...datosGlobales.pagos].reverse();
 
   pagosOrdenados.forEach(p => {
@@ -73,18 +71,22 @@ function renderizarPagos() {
     const nombre = contrato ? contrato.inquilino : "Desconocido";
     
     // Alerta SUNAT
-    let claseSunat = 'pagado';
+    let claseSunat = 'status-pagado';
     if(p.estado_sunat === 'Pendiente') {
-      claseSunat = 'pendiente';
+      claseSunat = 'status-pendiente';
       alertas.innerHTML += `<div class="alerta">🚨 <strong>ALERTA SUNAT:</strong> Falta pagar el 5% de ${nombre} (${p.periodo})</div>`;
     }
+
+    // Alerta Luz en Tabla
+    let textoLuz = p.estado_luz || '-';
+    if(p.estado_luz === 'Con Deuda') textoLuz = '❌ Con Deuda';
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${p.periodo}</td>
       <td>${nombre}</td>
       <td>S/ ${p.monto}</td>
-      <td>${p.estado_luz || '-'}</td>
+      <td>${textoLuz}</td>
       <td><span class="${claseSunat}">${p.estado_sunat}</span></td>
     `;
     tbody.appendChild(tr);
@@ -96,7 +98,7 @@ function renderizarPagos() {
 function mostrarForm(id) {
   document.getElementById(id).style.display = 'flex';
   
-  // Si es el form de pago, cargamos la lista de inquilinos
+  // Cargar lista de inquilinos en el select
   if(id === 'form-pago') {
     const select = document.getElementById('p_contrato');
     select.innerHTML = '<option value="">-- Selecciona Inquilino --</option>';
@@ -108,17 +110,16 @@ function mostrarForm(id) {
       select.appendChild(option);
     });
 
-    // Evento para autocompletar datos
+    // Activar el autocompletado
     select.onchange = actualizarInfoPago;
   }
 }
 
-// ✨ FUNCIÓN INTELIGENTE: Autocompletar datos del pago
+// FUNCIÓN CLAVE: Autocompletar datos del contrato
 function actualizarInfoPago() {
   const idContrato = document.getElementById('p_contrato').value;
   const infoDiv = document.getElementById('info-pago-detalle');
   const inputMonto = document.getElementById('p_monto');
-  const inputFecha = document.getElementById('p_fecha');
 
   if (!idContrato) {
     infoDiv.innerHTML = '';
@@ -129,22 +130,25 @@ function actualizarInfoPago() {
   const contrato = datosGlobales.contratos.find(c => c.id === idContrato);
   
   if (contrato) {
-    // Calculamos día de pago
-    let textoFecha = "Revisar contrato";
+    // Calcular día de pago aproximado
+    let textoFecha = "Fecha no registrada";
     if (contrato.fecha_inicio) {
+        // Intentar parsear fecha
         const fecha = new Date(contrato.fecha_inicio);
-        const dia = fecha.getDate() + 1; // Ajuste zona horaria simple
-        textoFecha = `Día ${dia} de cada mes`;
+        if(!isNaN(fecha)) {
+             const dia = fecha.getDate() + 1; // Ajuste
+             textoFecha = `Día ${dia} de cada mes`;
+        }
     }
 
-    inputMonto.value = contrato.monto; // Autocompletar monto
+    inputMonto.value = contrato.monto; // Poner el monto automáticamente
     
-    // Mostramos tarjeta de resumen
     infoDiv.innerHTML = `
       <div class="info-contrato">
-        <strong>📋 Detalles del Contrato:</strong><br>
-        • Monto Pactado: <b>S/ ${contrato.monto}</b><br>
-        • Fecha de Cobro: <b>${textoFecha}</b><br>
+        <strong>📋 Información del Contrato:</strong><br>
+        • Inquilino: <b>${contrato.inquilino}</b><br>
+        • Monto a cobrar: <b>S/ ${contrato.monto}</b><br>
+        • Fecha de cobro: <b>${textoFecha}</b><br>
         • Suministro Luz: <b>${contrato.luz_suministro}</b>
       </div>
     `;
@@ -155,7 +159,7 @@ function cerrarModales() {
   document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
 }
 
-// --- 4. ENVÍO DE DATOS (POST) ---
+// --- 4. ENVÍO DE DATOS ---
 
 async function enviarDatos(payload) {
   const btn = document.querySelector('.modal[style="display: flex;"] button.btn-primary, .modal[style="display: flex;"] button.btn-secondary');
@@ -169,14 +173,13 @@ async function enviarDatos(payload) {
       body: JSON.stringify(payload)
     });
 
-    alert("✅ ¡Guardado con éxito!");
+    alert("✅ Guardado correctamente.");
     cerrarModales();
-    iniciarApp(); // Recargar datos para ver cambios
+    iniciarApp(); // Recargar para ver los cambios
   } catch (error) {
-    // Apps Script devuelve texto opaco por seguridad CORS, pero si llega aquí suele haber funcionado
-    // Si falla realmente, lo veremos al no recargar datos.
-    console.log("Respuesta recibida (cors opaco)");
-    alert("✅ Registro procesado (Actualiza para verificar)");
+    // Si hay error CORS (común en Apps Script), asumimos éxito si no hay error de red
+    console.log("Respuesta opaca recibida");
+    alert("✅ Datos enviados (Actualiza la página para confirmar).");
     cerrarModales();
     iniciarApp();
   } finally {
@@ -215,7 +218,7 @@ function guardarPago() {
   enviarDatos(payload);
 }
 
-// Navegación Pestañas
+// Navegación
 window.ver = function(id) {
   document.getElementById('vista-contratos').style.display = 'none';
   document.getElementById('vista-pagos').style.display = 'none';

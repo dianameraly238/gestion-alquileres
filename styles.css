@@ -1,99 +1,122 @@
-/* DISEÑO COMPLETO: ROSADO Y ROJO */
-body { 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    background-color: #FFF0F5; /* Fondo rosado muy suave */
+/* PALETA DE COLORES EXACTA */
+:root {
+    --frambuesa: #C2185B;  /* Color Principal */
+    --frambuesa-dark: #880E4F;
+    --rosa-pastel: #FCE4EC; /* Fondos suaves */
+    --rosa-borde: #F8BBD0;  /* Bordes sutiles */
+    --rojo: #D32F2F;        /* Alertas y Deudas */
+    --blanco: #FFFFFF;
+    --texto: #444444;
+  }
+  
+  body { 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+    background-color: var(--rosa-pastel); 
+    color: var(--texto);
     margin: 0; 
     padding: 20px; 
-    color: #444; 
   }
   
   .container { 
     max-width: 900px; 
     margin: 0 auto; 
-    background: white; 
+    background: var(--blanco); 
     padding: 30px; 
-    border-radius: 15px; 
-    box-shadow: 0 4px 20px rgba(216, 27, 96, 0.15); 
-    border-top: 6px solid #D81B60; /* Rojo Frambuesa */
+    border-radius: 20px; 
+    box-shadow: 0 10px 25px rgba(194, 24, 91, 0.15); /* Sombra frambuesa suave */
+    border-top: 8px solid var(--frambuesa); 
   }
   
   h1, h2, h3 { 
-    color: #880E4F; /* Rojo Oscuro */
+    color: var(--frambuesa); 
     margin-top: 0;
   }
   
-  /* --- BOTONES Y ACCIONES --- */
+  /* --- BOTONES --- */
   .acciones {
     display: flex;
     gap: 15px;
     margin-bottom: 25px;
+    flex-wrap: wrap;
   }
   
   .btn-primary { 
-    background: #D81B60; /* Rojo Frambuesa */
-    color: white; 
+    background-color: var(--frambuesa); 
+    color: var(--blanco); 
     padding: 12px 25px; 
     border: none; 
     border-radius: 30px; 
     cursor: pointer; 
     font-weight: bold;
-    font-size: 14px;
-    transition: background 0.3s;
-    box-shadow: 0 2px 5px rgba(216, 27, 96, 0.3);
+    font-size: 15px;
+    transition: transform 0.2s, background 0.3s;
+    box-shadow: 0 4px 6px rgba(194, 24, 91, 0.3);
   }
   
-  .btn-primary:hover { background: #AD1457; }
+  .btn-primary:hover { 
+    background-color: var(--frambuesa-dark); 
+    transform: translateY(-2px);
+  }
   
   .btn-secondary { 
-    background: #EC407A; /* Rosa Fuerte */
-    color: white; 
+    background-color: var(--rojo); 
+    color: var(--blanco); 
     padding: 12px 25px; 
     border: none; 
     border-radius: 30px; 
     cursor: pointer; 
     font-weight: bold;
-    font-size: 14px;
-    transition: background 0.3s;
-    box-shadow: 0 2px 5px rgba(236, 64, 122, 0.3);
+    font-size: 15px;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 6px rgba(211, 47, 47, 0.3);
   }
   
-  .btn-secondary:hover { background: #C2185B; }
+  .btn-secondary:hover { 
+    background-color: #B71C1C; 
+    transform: translateY(-2px);
+  }
   
   .btn-cancel {
-    background: #9E9E9E;
+    background-color: #9E9E9E;
     color: white;
+    padding: 12px 20px; 
+    border: none; 
+    border-radius: 8px;
+    cursor: pointer;
   }
   
   /* --- PESTAÑAS (TABS) --- */
   .tabs { 
-    margin-bottom: 20px; 
+    margin-bottom: 25px; 
     display: flex; 
     gap: 10px; 
-    border-bottom: 2px solid #F8BBD0; 
+    border-bottom: 3px solid var(--rosa-borde); 
     padding-bottom: 10px; 
   }
   
   .tabs button { 
-    padding: 10px 20px; 
+    padding: 10px 25px; 
     cursor: pointer; 
     background: transparent; 
     border: none; 
-    color: #D81B60; 
-    font-weight: 600; 
+    color: var(--frambuesa); 
+    font-weight: 700; 
     font-size: 16px; 
     border-radius: 20px; 
     transition: all 0.3s; 
   }
   
   .tabs button.active { 
-    background: #D81B60; 
-    color: white; 
-    box-shadow: 0 2px 5px rgba(216,27,96,0.3); 
+    background-color: var(--frambuesa); 
+    color: var(--blanco); 
+    box-shadow: 0 4px 10px rgba(194, 24, 91, 0.3); 
   }
   
-  .tabs button:hover:not(.active) { background: #FCE4EC; }
+  .tabs button:hover:not(.active) { 
+    background-color: var(--rosa-pastel); 
+  }
   
-  /* --- TARJETAS (CONTRATOS) --- */
+  /* --- TARJETAS --- */
   .grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
@@ -101,73 +124,90 @@ body {
   }
   
   .card { 
-    border: 1px solid #F8BBD0; 
-    background: #FFFBFC; 
+    border: 1px solid var(--rosa-borde); 
+    background: #FFF; 
     padding: 20px; 
-    border-radius: 12px; 
+    border-radius: 15px; 
     transition: transform 0.2s, box-shadow 0.2s; 
   }
   
   .card:hover { 
     transform: translateY(-5px); 
-    box-shadow: 0 5px 15px rgba(216, 27, 96, 0.1);
-    border-color: #D81B60; 
+    box-shadow: 0 8px 20px rgba(194, 24, 91, 0.15);
+    border-color: var(--frambuesa); 
   }
   
-  .card h3 { margin-bottom: 10px; font-size: 1.2rem; }
-  .card p { margin: 5px 0; font-size: 0.95rem; }
+  .card h3 { 
+    color: var(--frambuesa-dark);
+    border-bottom: 2px solid var(--rosa-pastel);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
   
-  /* --- TABLAS (PAGOS) --- */
-  .tabla { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  /* --- TABLAS --- */
+  .tabla { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; border-radius: 10px; overflow: hidden; }
   .tabla th { 
-    background: #D81B60; 
-    color: white; 
+    background-color: var(--frambuesa); 
+    color: var(--blanco); 
     padding: 15px; 
     text-align: left; 
-    border-radius: 5px 5px 0 0; 
   }
-  .tabla td { padding: 12px; border-bottom: 1px solid #FCE4EC; }
-  .tabla tr:hover { background-color: #FFF0F5; }
+  .tabla td { padding: 12px; border-bottom: 1px solid var(--rosa-borde); }
+  .tabla tr:hover { background-color: var(--rosa-pastel); }
   
-  .pagado { color: #2E7D32; font-weight: bold; background: #E8F5E9; padding: 4px 8px; border-radius: 12px; font-size: 0.85rem;}
-  .pendiente { color: #C62828; font-weight: bold; background: #FFEBEE; padding: 4px 8px; border-radius: 12px; font-size: 0.85rem;}
+  .status-pagado { 
+    color: #2E7D32; 
+    font-weight: bold; 
+    background: #E8F5E9; 
+    padding: 5px 10px; 
+    border-radius: 15px; 
+    font-size: 0.9em;
+  }
+  
+  .status-pendiente { 
+    color: var(--rojo); 
+    font-weight: bold; 
+    background: #FFEBEE; 
+    padding: 5px 10px; 
+    border-radius: 15px; 
+    font-size: 0.9em;
+  }
   
   /* --- ALERTAS --- */
   .alerta { 
-    background: #FFEBEE; 
-    color: #C62828; 
+    background-color: #FFEBEE; /* Fondo rojo muy claro */
+    color: var(--rojo); 
     padding: 15px; 
     margin-bottom: 20px; 
-    border-radius: 8px; 
-    border-left: 6px solid #D32F2F; 
-    display: flex; 
-    align-items: center; 
+    border-radius: 10px; 
+    border-left: 6px solid var(--rojo); 
     font-weight: 500;
+    display: flex;
+    align-items: center;
   }
   
-  /* --- MODALES (FORMULARIOS) --- */
+  /* --- MODALES --- */
   .modal { 
     position: fixed; 
     top: 0; 
     left: 0; 
     width: 100%; 
     height: 100%; 
-    background: rgba(88, 14, 79, 0.7); /* Fondo oscuro vino */
-    display: none; /* Oculto por defecto */
+    background: rgba(136, 14, 79, 0.8); /* Frambuesa oscuro transparente */
+    display: none; 
     justify-content: center; 
     align-items: center; 
     z-index: 1000; 
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(4px);
   }
   
   .modal-content { 
-    background: white; 
+    background: var(--blanco); 
     padding: 30px; 
-    border-radius: 15px; 
+    border-radius: 20px; 
     width: 90%; 
     max-width: 450px; 
-    border: 2px solid #F8BBD0; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
     max-height: 90vh;
     overflow-y: auto;
   }
@@ -176,24 +216,27 @@ body {
     width: 100%; 
     padding: 12px; 
     margin: 8px 0 20px 0; 
-    border: 1px solid #F48FB1; 
+    border: 1px solid var(--rosa-borde); 
     border-radius: 8px; 
     box-sizing: border-box; 
     font-size: 14px;
   }
   
-  .modal-content label { font-weight: bold; color: #880E4F; font-size: 0.9rem; }
-  
-  .modal-buttons { display: flex; gap: 10px; margin-top: 10px; }
-  .modal-buttons button { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-  
-  /* Info extra en formulario */
-  .info-contrato { 
-    background: #FCE4EC; 
-    padding: 15px; 
-    border-radius: 8px; 
-    font-size: 0.9em; 
-    color: #880E4F; 
-    margin-bottom: 20px; 
-    border: 1px dashed #D81B60; 
+  .modal-content input:focus, .modal-content select:focus {
+    outline: none;
+    border-color: var(--frambuesa);
+    box-shadow: 0 0 5px rgba(194, 24, 91, 0.3);
   }
+  
+  .info-contrato { 
+    background-color: var(--rosa-pastel); 
+    padding: 15px; 
+    border-radius: 10px; 
+    color: var(--frambuesa-dark); 
+    margin-bottom: 20px; 
+    border: 1px dashed var(--frambuesa); 
+    font-size: 0.95em;
+  }
+  
+  .modal-buttons { display: flex; gap: 10px; margin-top: 15px; }
+  .modal-buttons button { flex: 1; }
