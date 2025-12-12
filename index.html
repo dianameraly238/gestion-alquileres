@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestión de Alquileres</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
@@ -26,7 +26,7 @@
 
     <div id="vista-contratos">
       <div id="lista-contratos" class="grid">
-        <p>Cargando datos...</p>
+        <p style="color:#C2185B">Cargando datos...</p>
       </div>
     </div>
 
@@ -41,8 +41,7 @@
             <th>SUNAT</th>
           </tr>
         </thead>
-        <tbody id="lista-pagos">
-          </tbody>
+        <tbody id="lista-pagos"></tbody>
       </table>
     </div>
   </div>
@@ -50,30 +49,18 @@
   <div id="form-contrato" class="modal">
     <div class="modal-content">
       <h3>📝 Nuevo Contrato</h3>
-      <input type="text" id="c_nombres" placeholder="Nombres del Inquilino">
-      <input type="text" id="c_apellidos" placeholder="Apellidos del Inquilino">
+      <input type="text" id="c_nombres" placeholder="Nombres">
+      <input type="text" id="c_apellidos" placeholder="Apellidos">
       <input type="number" id="c_dni" placeholder="DNI / RUC">
-      <input type="text" id="c_direccion" placeholder="Dirección del Inmueble">
-      <input type="number" id="c_luz" placeholder="N° Suministro Luz">
-      
-      <label>Fecha Inicio:</label>
-      <input type="date" id="c_inicio">
-      
-      <label>Fecha Fin (1 año):</label>
-      <input type="date" id="c_fin">
-      
-      <input type="number" id="c_monto" placeholder="Monto Alquiler Mensual (S/)">
-      
-      <label>Tipo de Garantía:</label>
-      <select id="c_garantia_tipo">
-        <option value="1x1">Garantía 1x1</option>
-        <option value="2x1">Garantía 2x1</option>
-      </select>
-      
-      <input type="number" id="c_garantia_monto" placeholder="Monto Garantía (S/)">
-      
+      <input type="text" id="c_direccion" placeholder="Dirección">
+      <input type="number" id="c_luz" placeholder="Suministro Luz">
+      <label>Inicio:</label><input type="date" id="c_inicio">
+      <label>Fin:</label><input type="date" id="c_fin">
+      <input type="number" id="c_monto" placeholder="Monto Alquiler">
+      <select id="c_garantia_tipo"><option value="1x1">Garantía 1x1</option><option value="2x1">Garantía 2x1</option></select>
+      <input type="number" id="c_garantia_monto" placeholder="Monto Garantía">
       <div class="modal-buttons">
-        <button onclick="guardarContrato()" class="btn-primary">Guardar Contrato</button>
+        <button onclick="guardarContrato()" class="btn-primary">Guardar</button>
         <button onclick="cerrarModales()" class="btn-cancel">Cancelar</button>
       </div>
     </div>
@@ -81,36 +68,16 @@
 
   <div id="form-pago" class="modal">
     <div class="modal-content">
-      <h3>💸 Registrar Pago de Alquiler</h3>
-      
-      <label>Seleccionar Inquilino:</label>
-      <select id="p_contrato">
-        <option value="">-- Cargando lista --</option>
-      </select>
-
+      <h3>💸 Registrar Pago</h3>
+      <select id="p_contrato"><option value="">Cargando...</option></select>
       <div id="info-pago-detalle"></div>
-
-      <input type="text" id="p_periodo" placeholder="Periodo (Ej: Octubre 2024)">
-      
-      <label>Fecha de Pago Real:</label>
-      <input type="date" id="p_fecha">
-      
-      <input type="number" id="p_monto" placeholder="Monto Pagado (S/)">
-      
-      <label>Estado Suministro Luz:</label>
-      <select id="p_luz">
-        <option value="Al día">✅ Al día</option>
-        <option value="Con Deuda">❌ Con Deuda</option>
-      </select>
-      
-      <label>Estado Impuesto SUNAT (5%):</label>
-      <select id="p_sunat">
-        <option value="Pendiente">⏳ Pendiente</option>
-        <option value="Pagado">✅ Pagado</option>
-      </select>
-      
+      <input type="text" id="p_periodo" placeholder="Periodo (Ej: Octubre)">
+      <label>Fecha Pago:</label><input type="date" id="p_fecha">
+      <input type="number" id="p_monto" placeholder="Monto Pagado">
+      <select id="p_luz"><option value="Al día">Luz: Al día</option><option value="Con Deuda">Luz: Deuda</option></select>
+      <select id="p_sunat"><option value="Pendiente">SUNAT: Pendiente</option><option value="Pagado">SUNAT: Pagado</option></select>
       <div class="modal-buttons">
-        <button onclick="guardarPago()" class="btn-secondary">Registrar Pago</button>
+        <button onclick="guardarPago()" class="btn-secondary">Registrar</button>
         <button onclick="cerrarModales()" class="btn-cancel">Cancelar</button>
       </div>
     </div>

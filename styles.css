@@ -1,20 +1,19 @@
-/* PALETA DE COLORES EXACTA */
+/* --- PALETA FRAMBUESA, ROSA PASTEL Y ROJO --- */
 :root {
-    --frambuesa: #C2185B;  /* Color Principal */
-    --frambuesa-dark: #880E4F;
-    --rosa-pastel: #FCE4EC; /* Fondos suaves */
-    --rosa-borde: #F8BBD0;  /* Bordes sutiles */
-    --rojo: #D32F2F;        /* Alertas y Deudas */
+    --color-frambuesa: #C2185B;  /* Botones y Encabezados */
+    --color-frambuesa-dark: #880E4F; /* Hover y Textos fuertes */
+    --color-rosa-pastel: #FCE4EC; /* Fondo general */
+    --color-rosa-borde: #F8BBD0;  /* Bordes de tarjetas */
+    --color-rojo: #D32F2F;        /* Alertas y Deudas */
     --blanco: #FFFFFF;
-    --texto: #444444;
   }
   
   body { 
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-    background-color: var(--rosa-pastel); 
-    color: var(--texto);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background-color: var(--color-rosa-pastel) !important; /* FORZAMOS EL ROSA */
     margin: 0; 
     padding: 20px; 
+    color: #444;
   }
   
   .container { 
@@ -23,25 +22,20 @@
     background: var(--blanco); 
     padding: 30px; 
     border-radius: 20px; 
-    box-shadow: 0 10px 25px rgba(194, 24, 91, 0.15); /* Sombra frambuesa suave */
-    border-top: 8px solid var(--frambuesa); 
+    box-shadow: 0 10px 25px rgba(194, 24, 91, 0.15); 
+    border-top: 8px solid var(--color-frambuesa); /* Borde superior Frambuesa */
   }
   
   h1, h2, h3 { 
-    color: var(--frambuesa); 
+    color: var(--color-frambuesa-dark); 
     margin-top: 0;
   }
   
   /* --- BOTONES --- */
-  .acciones {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-  }
+  .acciones { display: flex; gap: 15px; margin-bottom: 25px; }
   
   .btn-primary { 
-    background-color: var(--frambuesa); 
+    background-color: var(--color-frambuesa); 
     color: var(--blanco); 
     padding: 12px 25px; 
     border: none; 
@@ -49,31 +43,20 @@
     cursor: pointer; 
     font-weight: bold;
     font-size: 15px;
-    transition: transform 0.2s, background 0.3s;
     box-shadow: 0 4px 6px rgba(194, 24, 91, 0.3);
   }
   
-  .btn-primary:hover { 
-    background-color: var(--frambuesa-dark); 
-    transform: translateY(-2px);
-  }
+  .btn-primary:hover { background-color: var(--color-frambuesa-dark); }
   
   .btn-secondary { 
-    background-color: var(--rojo); 
+    background-color: var(--color-rojo); 
     color: var(--blanco); 
     padding: 12px 25px; 
     border: none; 
     border-radius: 30px; 
     cursor: pointer; 
     font-weight: bold;
-    font-size: 15px;
-    transition: transform 0.2s;
     box-shadow: 0 4px 6px rgba(211, 47, 47, 0.3);
-  }
-  
-  .btn-secondary:hover { 
-    background-color: #B71C1C; 
-    transform: translateY(-2px);
   }
   
   .btn-cancel {
@@ -90,7 +73,7 @@
     margin-bottom: 25px; 
     display: flex; 
     gap: 10px; 
-    border-bottom: 3px solid var(--rosa-borde); 
+    border-bottom: 3px solid var(--color-rosa-borde); 
     padding-bottom: 10px; 
   }
   
@@ -99,144 +82,71 @@
     cursor: pointer; 
     background: transparent; 
     border: none; 
-    color: var(--frambuesa); 
+    color: var(--color-frambuesa); 
     font-weight: 700; 
     font-size: 16px; 
     border-radius: 20px; 
-    transition: all 0.3s; 
   }
   
   .tabs button.active { 
-    background-color: var(--frambuesa); 
+    background-color: var(--color-frambuesa); 
     color: var(--blanco); 
     box-shadow: 0 4px 10px rgba(194, 24, 91, 0.3); 
   }
   
-  .tabs button:hover:not(.active) { 
-    background-color: var(--rosa-pastel); 
-  }
-  
   /* --- TARJETAS --- */
-  .grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-    gap: 20px; 
-  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
   
   .card { 
-    border: 1px solid var(--rosa-borde); 
+    border: 1px solid var(--color-rosa-borde); 
     background: #FFF; 
     padding: 20px; 
     border-radius: 15px; 
-    transition: transform 0.2s, box-shadow 0.2s; 
   }
   
   .card:hover { 
     transform: translateY(-5px); 
     box-shadow: 0 8px 20px rgba(194, 24, 91, 0.15);
-    border-color: var(--frambuesa); 
+    border-color: var(--color-frambuesa); 
   }
   
-  .card h3 { 
-    color: var(--frambuesa-dark);
-    border-bottom: 2px solid var(--rosa-pastel);
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-  }
+  /* --- TABLAS Y ESTADOS --- */
+  .tabla { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; }
+  .tabla th { background-color: var(--color-frambuesa); color: var(--blanco); padding: 15px; text-align: left; }
+  .tabla td { padding: 12px; border-bottom: 1px solid var(--color-rosa-borde); }
   
-  /* --- TABLAS --- */
-  .tabla { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; border-radius: 10px; overflow: hidden; }
-  .tabla th { 
-    background-color: var(--frambuesa); 
-    color: var(--blanco); 
-    padding: 15px; 
-    text-align: left; 
-  }
-  .tabla td { padding: 12px; border-bottom: 1px solid var(--rosa-borde); }
-  .tabla tr:hover { background-color: var(--rosa-pastel); }
-  
-  .status-pagado { 
-    color: #2E7D32; 
-    font-weight: bold; 
-    background: #E8F5E9; 
-    padding: 5px 10px; 
-    border-radius: 15px; 
-    font-size: 0.9em;
-  }
-  
-  .status-pendiente { 
-    color: var(--rojo); 
-    font-weight: bold; 
-    background: #FFEBEE; 
-    padding: 5px 10px; 
-    border-radius: 15px; 
-    font-size: 0.9em;
-  }
+  /* Colores de estado solicitados */
+  .status-pagado { color: #2E7D32; font-weight: bold; background: #E8F5E9; padding: 5px 10px; border-radius: 15px; }
+  .status-pendiente { color: var(--color-rojo); font-weight: bold; background: #FFEBEE; padding: 5px 10px; border-radius: 15px; }
   
   /* --- ALERTAS --- */
   .alerta { 
-    background-color: #FFEBEE; /* Fondo rojo muy claro */
-    color: var(--rojo); 
+    background-color: #FFEBEE; 
+    color: var(--color-rojo); 
     padding: 15px; 
     margin-bottom: 20px; 
     border-radius: 10px; 
-    border-left: 6px solid var(--rojo); 
-    font-weight: 500;
-    display: flex;
-    align-items: center;
+    border-left: 6px solid var(--color-rojo); 
+    font-weight: bold;
   }
   
   /* --- MODALES --- */
   .modal { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
     background: rgba(136, 14, 79, 0.8); /* Frambuesa oscuro transparente */
-    display: none; 
-    justify-content: center; 
-    align-items: center; 
-    z-index: 1000; 
-    backdrop-filter: blur(4px);
+    display: none; justify-content: center; align-items: center; z-index: 1000; 
   }
-  
   .modal-content { 
-    background: var(--blanco); 
-    padding: 30px; 
-    border-radius: 20px; 
-    width: 90%; 
-    max-width: 450px; 
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    max-height: 90vh;
-    overflow-y: auto;
+    background: var(--blanco); padding: 30px; border-radius: 20px; 
+    width: 90%; max-width: 450px; 
   }
-  
   .modal-content input, .modal-content select { 
-    width: 100%; 
-    padding: 12px; 
-    margin: 8px 0 20px 0; 
-    border: 1px solid var(--rosa-borde); 
-    border-radius: 8px; 
-    box-sizing: border-box; 
-    font-size: 14px;
+    width: 100%; padding: 12px; margin: 8px 0 20px 0; 
+    border: 1px solid var(--color-rosa-borde); border-radius: 8px; box-sizing: border-box; 
   }
-  
-  .modal-content input:focus, .modal-content select:focus {
-    outline: none;
-    border-color: var(--frambuesa);
-    box-shadow: 0 0 5px rgba(194, 24, 91, 0.3);
-  }
-  
-  .info-contrato { 
-    background-color: var(--rosa-pastel); 
-    padding: 15px; 
-    border-radius: 10px; 
-    color: var(--frambuesa-dark); 
-    margin-bottom: 20px; 
-    border: 1px dashed var(--frambuesa); 
-    font-size: 0.95em;
-  }
-  
-  .modal-buttons { display: flex; gap: 10px; margin-top: 15px; }
+  .modal-buttons { display: flex; gap: 10px; }
   .modal-buttons button { flex: 1; }
+  .info-contrato { 
+      background: var(--color-rosa-pastel); padding: 15px; 
+      border-radius: 10px; border: 1px dashed var(--color-frambuesa); color: var(--color-frambuesa-dark);
+  }
